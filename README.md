@@ -11,7 +11,7 @@ Requirements
 *  Ansible 
 *  Fedora or RHEL 8.x
 * IF using RHEL make sure it is registered
-* OpenShift CodeReady WorkSpaces  pull secert 
+* OpenShift CodeReady WorkSpaces  pull secret 
   * https://cloud.redhat.com/openshift/install/crc/installer-provisioned
 * Anisble post fix module
   * `ansible-galaxy collection install ansible.posix`
@@ -41,8 +41,6 @@ crc_version  | Target CRC version  | latest
 crc_sha      | SHA informaqtion of the crc-linux-amd64.tar.xz file | 179a5f41ce875859a403f79ce0fd1917701bc4c4fbc12a776e5078876dd07743
 crc_url      |  CRC download URL | https://mirror.openshift.com/pub/openshift-v4/clients/crc/
 crc_file_name  | CRC filename  | crc-linux-amd64.tar.xz
-pull_secert_path | default path of pull secert | /tmp/pull-secert.txt
-pull_secert_content: | pull secert content     |  changeme
 use_all_in_one_haproxy | Use current machine as haproxy LB | true
 haproxy_ip             | Set ha proxy ip if above is set to flase **NOT TESTED**| ""
 use_all_in_one_dnsmasq | Use current machine as dnsmasq server | true
@@ -70,55 +68,12 @@ Dependencies
 
 Prerequiestes
 -------------
-Configure sudo user 
-```
-curl -OL https://gist.githubusercontent.com/tosin2013/385054f345ff7129df6167631156fa2a/raw/b67866c8d0ec220c393ea83d2c7056f33c472e65/configure-sudo-user.sh
-chmod +x configure-sudo-user.sh
-./configure-sudo-user.sh
-```
 
-Configure RHEL 8.x  system
-```
-sudo su - sudouser
-curl -OL https://gist.githubusercontent.com/tosin2013/ae925297c1a257a1b9ac8157bcc81f31/raw/142d8dd142b031d59c14a7a7ad6f3000ad775453/configure-rhel8.x.sh
-chmod +x configure-rhel8.x.sh
-./configure-rhel8.x.sh
-```
 
-Optional: Configure Fedora system
-```
-sudo su - sudouser
-curl -OL https://gist.githubusercontent.com/tosin2013/a2af69a0814b38ddf3d98cf8ac5fcf0d/raw/5aed9e7f4a407d8767fe449b763ab8cf11984468/configure-fedora.sh
-chmod +x configure-fedora.sh
-./configure-fedora.sh
-```
-
-Example Playbook
+Download pull-secret
 ----------------
-To run playbook as sudo add the `-K` flag 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-You can get pull secert [here](https://cloud.redhat.com/openshift/install/pull-secret).
-```
-- hosts: servers
-  become: yes
-  vars:
-    crc_version: latest
-    crc_sha: 659046b3e478ef89563babef59c1cacdefe91ed32e844bac4504dba68e4a9f88
-    pull_secert_path: /tmp/pull-secert.txt
-    pull_secert_content: |
-      changeme
-    use_all_in_one_haproxy: true
-    haproxy_ip: ""
-    use_all_in_one_dnsmasq: true 
-    log_level: info
-    ocp4_release: latest
-    ocp4_version: 4.7.16
-    remove_oc_tool: false
-    delete_crc_deployment: false
-    forward_server: 1.1.1.1
-  roles:
-  - codeready-containers-hacks
-```
+Downloads pull-secret to your Downloads folder [here](https://cloud.redhat.com/openshift/install/pull-secret). Ansible will look for it in ~/Downloads/pull-secret
+
 
 Deployment Flags
 ---------------

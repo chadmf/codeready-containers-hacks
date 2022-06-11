@@ -1,7 +1,7 @@
 - name: Copying over pull-secert.txt
   template:
-    src: templates/pull-secret.txt.j2
-    dest:  "{{ pull_secert_path }}"
+    src: "{{ pull_secret_path }}"
+    dest:  /tmp/pull-secret
     owner: admin
     group: admin
     mode: 0666
@@ -30,9 +30,15 @@
   tags:
   - start_crc_deployment
 
+- name: Setup Telemetry for crc
+  shell: crc config set consent-telemetry no
+
+- name: Start CodeReady Deployment
+  shell: crc setup
+
 - name: Start CodeReady Deployment
   shell: |
     set -o pipefail
-    crc start -c {{ cpu }} -m {{ memory }} -p {{ pull_secert_path }} --log-level {{ log_level }} | tee /tmp/install_status.log
+    crc start -c {{ cpu }} -m {{ memory }} -p {{ pull_secret_path }} --log-level {{ log_level }} | tee /tmp/install_status.log
   tags:
   - start_crc_deployment

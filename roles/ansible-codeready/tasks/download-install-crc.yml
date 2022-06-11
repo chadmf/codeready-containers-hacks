@@ -4,25 +4,20 @@
     state: absent
   ignore_errors: yes 
 
+- name: Get crc sha from openshift site
+  get_url: 
+    url: "https://mirror.openshift.com/pub/openshift-v4/clients/crc/{{ ocp4_release }}/sha256sum.txt"
+    dest: /tmp/sha256sum.txt
+
+- name: set crc_sha
+  shell: cat /tmp/sha256sum.txt | grep crc-linux-amd64.tar.xz | awk '{print $1}'
+  register: crc_sha
+
 - name: "Download Code Ready Containers {{ crc_version }}"
   get_url:
     url: "{{ crc_url }}/{{ crc_version }}/{{ crc_file_name }}"
     dest: "/tmp/{{ crc_file_name }}"
-  tags:
-  - download_crc
-
-- name: "Get  {{ crc_file_name }} sha information"
-  stat:
-    path: "/tmp/{{ crc_file_name }}"
-    checksum_algorithm: sha256
-  register: crc_file_name
-  tags:
-  - download_crc
-
-- name: Get crc file sha
-  debug:
-    var: crc_file_name
-  failed_when: crc_sha != crc_file_name.stat.checksum
+    checksum: "sha256:{{ crc_sha.stdout }}"
   tags:
   - download_crc
 
