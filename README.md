@@ -91,19 +91,19 @@ You can use any of these flags individually to run just that part of the playboo
 ## Start a full deployment for localhost
 
 ```shell
-ansible-playbook  -i inventory localhost.yml --tags download_crc,extract_crc,configure_oc_cli,setup_crc,start_crc_deployment
+ansible-playbook localhost.yml --tags download_crc,extract_crc,configure_oc_cli,setup_crc,start_crc_deployment
 ```
 
 ## Get crc url and login info
 
 ```shell
-ansible-playbook  -i inventory localhost.yml --tags get_codeready_info
+ansible-playbook localhost.yml --tags get_codeready_info
 ```
 
 ## Delete deployment
 
 ```shell
-ansible-playbook  -i inventory localhost.yml --extra-vars "delete_crc_deployment=true" -K 
+ansible-playbook localhost.yml --extra-vars "delete_crc_deployment=true" 
 ```
 
 ### License
