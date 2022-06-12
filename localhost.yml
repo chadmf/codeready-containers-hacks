@@ -1,0 +1,12 @@
+- hosts: localhost
+  vars:
+    crc_version: latest
+    use_all_in_one_haproxy: false
+    use_all_in_one_dnsmasq: false 
+    log_level: info
+    ocp4_release: latest
+    remove_oc_tool: false
+    delete_crc_deployment: false
+    forward_server: 1.1.1.1
+  roles:
+  - ansible-codeready
