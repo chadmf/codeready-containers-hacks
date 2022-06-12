@@ -2,9 +2,6 @@
   template:
     src: "{{ pull_secret_path }}"
     dest:  /tmp/pull-secret
-    owner: admin
-    group: admin
-    mode: 0666
   tags:
   - start_crc_deployment
 

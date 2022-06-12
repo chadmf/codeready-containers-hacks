@@ -1,8 +1,6 @@
 - hosts: localhost
   vars:
     crc_version: latest
-    crc_sha: 5817e7b4a8d64d79d25cb00b55516ce7e12c994d225d200368a9713334958941
-    pull_secret_path: ~/Downloads/pull-secret
     use_all_in_one_haproxy: false
     use_all_in_one_dnsmasq: false 
     log_level: info
