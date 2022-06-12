@@ -25,7 +25,6 @@
   tags:
   - configure_oc_cli
 
-
 - name: Configure HAProxy for external connections
   include_tasks: configure-ha-proxy.yml
   when:
@@ -33,14 +32,6 @@
     - not delete_crc_deployment
   tags:
   - configure_ha_proxy
-
-- name: Configure dnsmasq for external connections
-  include_tasks: configure-dns-masq.yml
-  when:
-    - use_all_in_one_dnsmasq
-    - not delete_crc_deployment
-  tags:
-  - configure_dnsmaq
 
 - name: Code Ready Container information
   include_tasks: code-ready-info.yml

@@ -2,7 +2,7 @@
   file:
     path:  "/tmp/{{ crc_file_name }}"
     state: absent
-  ignore_errors: yes 
+  ignore_errors: true 
 
 - name: Get crc sha from openshift site
   get_url: 
@@ -13,7 +13,7 @@
   shell: cat /tmp/sha256sum.txt | grep crc-linux-amd64.tar.xz | awk '{print $1}'
   register: crc_sha
 
-- name: "Download Code Ready Containers {{ crc_version }}"
+- name: Download Code Ready Containers
   get_url:
     url: "{{ crc_url }}/{{ crc_version }}/{{ crc_file_name }}"
     dest: "/tmp/{{ crc_file_name }}"
